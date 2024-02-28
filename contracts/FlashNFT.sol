@@ -1,28 +1,27 @@
 // SPDX-License-Identifier: MIT
-import "./ONFT721Core.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "../contracts/interfaces/IONFT721.sol";
 
-pragma solidity ^0.8.18;
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "./interfaces/IFlashNFT.sol";
+import "./FlashNFTCore.sol";
 
-// NOTE: this ONFT contract has no public minting logic.
-// must implement your own minting logic in child classes
-contract ONFT721 is ONFT721Core, ERC721, IONFT721 {
+pragma solidity 0.8.19;
+
+contract FlashNFT is FlashNFTCore, ERC721Enumerable, IFlashNFT {
     constructor(
         string memory _name,
         string memory _symbol,
         uint256 _minGasToTransfer,
         address _lzEndpoint
-    ) ERC721(_name, _symbol) ONFT721Core(_minGasToTransfer, _lzEndpoint) {}
+    ) ERC721(_name, _symbol) FlashNFTCore(_minGasToTransfer, _lzEndpoint) {}
 
     function supportsInterface(bytes4 interfaceId)
         public
         view
         virtual
-        override(ONFT721Core, ERC721, IERC165)
+        override(FlashNFTCore, ERC721Enumerable, IERC165)
         returns (bool)
     {
-        return interfaceId == type(IONFT721).interfaceId || super.supportsInterface(interfaceId);
+        return interfaceId == type(IFlashNFT).interfaceId || super.supportsInterface(interfaceId);
     }
 
     function _debitFrom(
@@ -31,8 +30,8 @@ contract ONFT721 is ONFT721Core, ERC721, IONFT721 {
         bytes memory,
         uint256 _tokenId
     ) internal virtual override {
-        require(_isApprovedOrOwner(_msgSender(), _tokenId), "ONFT721: send caller is not owner nor approved");
-        require(ERC721.ownerOf(_tokenId) == _from, "ONFT721: send from incorrect owner");
+        require(_isApprovedOrOwner(_msgSender(), _tokenId), "FlashNFT: send caller is not owner nor approved");
+        require(ERC721.ownerOf(_tokenId) == _from, "FlashNFT: send from incorrect owner");
         _transfer(_from, address(this), _tokenId);
     }
 

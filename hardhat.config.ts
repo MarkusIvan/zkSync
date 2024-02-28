@@ -41,14 +41,14 @@ const config: HardhatUserConfig = {
     },
   },
   zksolc: {
-    version: "1.3.13",
+    version: "1.4.0",
     settings: {
       // find all available options in the official documentation
       // https://era.zksync.io/docs/tools/hardhat/hardhat-zksync-solc.html#configuration
     },
   },
   solidity: {
-    version: "0.8.18",
+    version: "0.8.19",
   },
 };
 

@@ -2,11 +2,11 @@
 import "@layerzerolabs/solidity-examples/contracts/lzApp/NonblockingLzApp.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "../contracts/interfaces/IONFT721Core.sol";
+import "../contracts/interfaces/IFlashNFTCore.sol";
 
-pragma solidity ^0.8.18;
+pragma solidity 0.8.19;
 
-abstract contract ONFT721Core is NonblockingLzApp, ERC165, ReentrancyGuard, IONFT721Core {
+abstract contract FlashNFTCore is NonblockingLzApp, ERC165, ReentrancyGuard, IFlashNFTCore {
     uint16 public constant FUNCTION_TYPE_SEND = 1;
 
     struct StoredCredit {
@@ -27,7 +27,7 @@ abstract contract ONFT721Core is NonblockingLzApp, ERC165, ReentrancyGuard, IONF
     }
 
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
-        return interfaceId == type(IONFT721Core).interfaceId || super.supportsInterface(interfaceId);
+        return interfaceId == type(IFlashNFTCore).interfaceId || super.supportsInterface(interfaceId);
     }
 
     function estimateSendFee(

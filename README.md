@@ -1,3 +1,10 @@
+# STEPS 
+1. Add .env file with WALLET_PRIVATE_KEY
+2. Run `npm install`
+3. Run `npx hardhat compile --network zkSyncTestnetGoerli`
+4. Run `npx hardhat deploy-zksync --network zkSyncTestnetGoerli`
+
+
 # This repository is deprecated and will no longer be maintained. This template is now available in [zkSync Contract Templates](https://github.com/matter-labs/zksync-contract-templates#readme)
 
 ---

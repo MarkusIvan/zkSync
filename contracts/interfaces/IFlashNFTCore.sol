@@ -2,9 +2,9 @@
 
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
-pragma solidity ^0.8.18;
+pragma solidity 0.8.19;
 
-interface IONFT721Core is IERC165 {
+interface IFlashNFTCore is IERC165 {
     /**
      * @dev Emitted when `_tokenIds[]` are moved from the `_sender` to (`_dstChainId`, `_toAddress`)
      * `_nonce` is the outbound nonce from
